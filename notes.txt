@@ -15,3 +15,18 @@ liste des sommets adjacents à i
 listeadjacence : vector<vec>
 C'est un vector indicé par les numéros i=0,1,2,...,n-1 des sommets.
 Pour chaque i, le vecteur contient la liste des sommets adjacents à i.
+
+Dans l'algo, cji est la distance (directe) entre les sommets j et i. 0 s'il n'y a pas de chemin.
+	-> a lire dans la liste d'adjacence
+
+
+1) Init de d
+2) init de T
+3) init de I
+4) On change les distances vers voisins du noeud pivot (élement 0 ici).
+	Le nouveau pivot est obtenu en supprimant du tas son élement min, soit T[0].
+	Le contenu de I change en conséquence
+
+
+
+pour chaque element j (tous les noeuds sauf pivot), qui est strictement sup à -1, ..

@@ -89,11 +89,43 @@ void graphe::dijkstra(int s)
     this->d[0] = 0;
     for(i = 1 ; i < this->n ; ++i)
         this->d[i] = infini;
-    int j = 1;
-    for(int l = 0 ; l < this->n - 1 ; ++l)
+    /* tableau pere initialisé à 0 par défaut en c++ */
+    int j = 0;  //noeud pivot initial
+    for(int l = 0 ; l < 2 ; ++l)   //l iterations pour debug
+    // for(int l = 0 ; l < this->n - 1 ; ++l)
     {
-        //...
+        // pour chaque voisin de j, à condition que I(i) > -1 //existe dans le tas
+        for(sommetadjacent s : this->L[j])
+        {
+            int i = s.first, cji = s.second;
+            int sum = this->d[j] + cji;
+            cout<<"i="<<i<<", cji="<<cji<<", sum="<<sum<<endl;  //debug
+            if(this->I[i] > -1 && sum < this->d[i])
+            { 
+                this->d[i] = sum;
+                this->pere[i] = j;
+                /* reorganisation du tas T à partir de l'indice I[i] */
+            }
+        }
+        /* Recherche dans T, de l'indice j de plus petite valeur d[i] */
+        j = this->T[0];
+        /* Suppression de l'indice j du tas */
     }
 
+    //debug
+    for(int i = 0 ; i < this->n ; ++i)
+        cout<<i<<" -> "<<this->d[i]<<endl;
+    cout<<endl;
 
+    for(int i = 0 ; i < this->n - 1 ; ++i)
+        cout<<i<<" -> "<<this->T[i]<<endl;
+    cout<<endl;
+
+    for(int i = 0 ; i < this->n ; ++i)
+        cout<<i<<" -> "<<this->I[i]<<endl;
+    cout<<endl;
+
+    for(int i = 0 ; i < this->n ; ++i)
+        cout<<i<<" -> "<<this->pere[i]<<endl;
+    cout<<endl;
 }
