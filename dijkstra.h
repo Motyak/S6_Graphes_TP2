@@ -27,9 +27,18 @@ class graphe{
 				        // I(i) = -1 signifiera que i n’est pas dans T.
 	int *d;			    // Tableau des valeurs des plus courts chemins à partir de s. d[i] est la valeur du plus chemin de s à i
 	int *pere;	    	// Tableau donnant pour chaque sommet i le prédécesseur de i (pere(i)) dans le plus court chemin de s à i
+
 public : 
 	graphe(char* filename);
 	void donnees();
 	void resultats(int s);
 	void dijkstra(int s);
+};
+
+class Cmp
+{
+public:
+	int* d;
+	Cmp(int* d);
+	bool operator()(int a, int b);
 };

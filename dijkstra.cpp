@@ -3,10 +3,22 @@
 #include <utility>
 #include <vector>
 #include <stack>
+#include <algorithm>
 
 using namespace std;
 
 #include "dijkstra.h"
+
+Cmp::Cmp(int* d)
+{
+    this->d = d;
+}
+
+// pour une min heap
+bool Cmp::operator()(const int a, const int b)
+{
+    return this->d[a] >= this->d[b];
+}
 
 /****************************************/
 /* Objectif : Constructeur avec comme argument
@@ -70,7 +82,6 @@ void graphe::resultats(int s)
 		cout << "-> " <<  i << " est égale à " << d[i] << endl;
 }
 
-
 /****************************************/
 /* Objectif : Calcul de tous les plus courts de s aux 
 autres sommets. A la fin de la méthode :
@@ -79,8 +90,6 @@ autres sommets. A la fin de la méthode :
 void graphe::dijkstra(int s)
 {
     // !!! TODO !!! //
-    
-
     int i = 0;
     for(; i < this->n - 1 ; ++i)
         this->T[i] = i + 1;
@@ -89,12 +98,12 @@ void graphe::dijkstra(int s)
     this->d[0] = 0;
     for(i = 1 ; i < this->n ; ++i)
         this->d[i] = infini;
-    /* tableau pere initialisé à 0 par défaut en c++ */
+    /* tableau pere initialisé à 0 par défaut en c++ ? */
     int j = 0;  //noeud pivot initial
-    for(int l = 0 ; l < 2 ; ++l)   //l iterations pour debug
+    for(int l = 0 ; l < 1 ; ++l)   //l iterations pour debug
     // for(int l = 0 ; l < this->n - 1 ; ++l)
     {
-        // pour chaque voisin de j, à condition que I(i) > -1 //existe dans le tas
+        // pour chaque voisin de j..
         for(sommetadjacent s : this->L[j])
         {
             int i = s.first, cji = s.second;
@@ -104,28 +113,54 @@ void graphe::dijkstra(int s)
             { 
                 this->d[i] = sum;
                 this->pere[i] = j;
-                /* reorganisation du tas T à partir de l'indice I[i] */
+
+                //debug
+                cout<<"debug1"<<endl;
+                for(int z = 0 ; z < this->n - 1 - l; ++z)
+                    cout<<z<<" -> "<<this->T[z]<<endl;
+                cout<<endl;
+
+                //reorganisation du tas T à partir de l'indice I[i] (changer la fn de cmp)
+                // std::make_heap(this->T + this->I[i], this->T + (this->n - 1 - l));
+                std::make_heap(this->T + this->I[i], this->T + this->n - 1 - l, Cmp(this->d));
+
+                //debug
+                cout<<"debug2"<<endl;
+                for(int z = 0 ; z < this->n - 1 - l; ++z)
+                    cout<<z<<" -> "<<this->T[z]<<endl;
+                cout<<endl;
             }
         }
-        /* Recherche dans T, de l'indice j de plus petite valeur d[i] */
-        j = this->T[0];
-        /* Suppression de l'indice j du tas */
+        //Recherche dans T, de l'indice j de plus petite valeur d[i]
+        // j = this->T[0];
+        //Suppression de l'indice j du tas
+        std::pop_heap(this->T, this->T + this->n - 1 - l, Cmp(this->d));
+
+        //debug
+                cout<<"debug3"<<endl;
+                for(int z = 0 ; z < this->n - 2 - l ; ++z)
+                    cout<<z<<" -> "<<this->T[z]<<endl;
+                cout<<endl;
+
+
+
+        // //debug
+        // for(int i = 0 ; i < this->n ; ++i)
+        //     cout<<i<<" -> "<<this->d[i]<<endl;
+        // cout<<endl;
+
+        // for(int i = 0 ; i < this->n - 1 ; ++i)
+        //     cout<<i<<" -> "<<this->T[i]<<endl;
+        // cout<<endl;
+
+        // for(int i = 0 ; i < this->n ; ++i)
+        //     cout<<i<<" -> "<<this->I[i]<<endl;
+        // cout<<endl;
+
+        // for(int i = 0 ; i < this->n ; ++i)
+        //     cout<<i<<" -> "<<this->pere[i]<<endl;
+        // cout<<endl;
     }
 
-    //debug
-    for(int i = 0 ; i < this->n ; ++i)
-        cout<<i<<" -> "<<this->d[i]<<endl;
-    cout<<endl;
-
-    for(int i = 0 ; i < this->n - 1 ; ++i)
-        cout<<i<<" -> "<<this->T[i]<<endl;
-    cout<<endl;
-
-    for(int i = 0 ; i < this->n ; ++i)
-        cout<<i<<" -> "<<this->I[i]<<endl;
-    cout<<endl;
-
-    for(int i = 0 ; i < this->n ; ++i)
-        cout<<i<<" -> "<<this->pere[i]<<endl;
-    cout<<endl;
+    
 }
