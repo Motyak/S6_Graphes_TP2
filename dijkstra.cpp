@@ -100,8 +100,8 @@ void graphe::dijkstra(int s)
         this->d[i] = infini;
     /* tableau pere initialisé à 0 par défaut en c++ ? */
     int j = 0;  //noeud pivot initial
-    for(int l = 0 ; l < 2 ; ++l)   //l iterations pour debug
-    // for(int l = 1 ; l < this->n - 1 ; ++l)
+    // for(int l = 1 ; l <= 2 ; ++l)   //l iterations pour debug
+    for(int l = 1 ; l < this->n  ; ++l)
     {
         // pour chaque voisin de j..
         for(sommetadjacent s : this->L[j])
@@ -134,24 +134,24 @@ void graphe::dijkstra(int s)
         }
         
         //Recherche dans T, de l'indice j de plus petite valeur d[i]
-        j = this->T[0];//sinon j reste à 0
+        j = this->T[0]; //sinon j reste à 0
         //swap la plus petite valeur dans T[0] pour le pop_heap
-        int* min = new int(infini);
-        int tmp;
-        for(int z = 0 ; z < this->n - 1 - l ; ++z)
-            if(this->T[z] < *min)
-                min = this->T + z;
-        tmp = this->T[0];
-        this->T[0] = *min;
-        cout<<"val min = "<<*min<<endl;
-        *min = tmp;
+        // int* min = new int(infini);
+        // int tmp;
+        // for(int z = 0 ; z < this->n - 1 - l ; ++z)
+        //     if(this->T[z] < *min)
+        //         min = this->T + z;
+        // tmp = this->T[0];
+        // this->T[0] = *min;
+        // cout<<"val min = "<<*min<<endl;
+        // *min = tmp;
 
 
-        //debug
-        cout<<"debug2.5"<<endl;
-        for(int z = 0 ; z < this->n - 1 - l ; ++z)
-            cout<<z<<" -> "<<this->T[z]<<endl;
-        cout<<endl;
+        // //debug
+        // cout<<"debug2.5"<<endl;
+        // for(int z = 0 ; z < this->n - 1 - l ; ++z)
+        //     cout<<z<<" -> "<<this->T[z]<<endl;
+        // cout<<endl;
 
         //Suppression de l'indice j du tas
         std::pop_heap(this->T, this->T + this->n - 1 - l, Cmp(this->d));
@@ -166,7 +166,7 @@ void graphe::dijkstra(int s)
             cout<<z<<" -> "<<this->T[z]<<endl;
         cout<<endl;
 
-        cout<<"FIN ITERATION "<<l+1<<endl<<endl;    //debug
+        cout<<"FIN ITERATION "<<l<<endl<<endl;    //debug
 
         // //debug
         // for(int i = 0 ; i < this->n ; ++i)
