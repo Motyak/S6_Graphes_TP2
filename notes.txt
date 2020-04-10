@@ -1,0 +1,17 @@
+Un graphe G = [V,E]
+avec V : ensemble des sommets
+et E : ensemble des arcs de V.
+Chaque arc est valué par un cout (ou longueur) c(e).
+Le pb du plus court chemin entre deux sommets i et j
+	consiste à trouver un chemin de i à j de coût
+	total minimal.
+
+sommetadjacent : std::pair<int,int>
+un sommet adjacent j, à un noeud i, est une pair (j, longueur de l'arête (i,j))
+
+vect : vector<sommetadjacent>
+liste des sommets adjacents à i
+
+listeadjacence : vector<vec>
+C'est un vector indicé par les numéros i=0,1,2,...,n-1 des sommets.
+Pour chaque i, le vecteur contient la liste des sommets adjacents à i.

@@ -79,4 +79,21 @@ autres sommets. A la fin de la méthode :
 void graphe::dijkstra(int s)
 {
     // !!! TODO !!! //
+    
+
+    int i = 0;
+    for(; i < this->n - 1 ; ++i)
+        this->T[i] = i + 1;
+    for(i = 0 ; i < this->n ; ++i)
+        this->I[i] = i - 1;
+    this->d[0] = 0;
+    for(i = 1 ; i < this->n ; ++i)
+        this->d[i] = infini;
+    int j = 1;
+    for(int l = 0 ; l < this->n - 1 ; ++l)
+    {
+        //...
+    }
+
+
 }
