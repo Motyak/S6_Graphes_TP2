@@ -117,7 +117,7 @@ void graphe::dijkstra(int s)
 
                 //debug
                 cout<<"debug1"<<endl;
-                for(int z = 0 ; z < this->n - 1 - l; ++z)
+                for(int z = 0 ; z < this->n - l; ++z)
                     cout<<z<<" -> "<<this->T[z]<<endl;
                 cout<<endl;
 
@@ -135,7 +135,7 @@ void graphe::dijkstra(int s)
         //swap la plus petite valeur dans T[0] pour le pop_heap
         int* min = new int(infini);
         int tmp;
-        for(int z = 0 ; z < this->n - 1 - l ; ++z)
+        for(int z = 0 ; z < this->n - l ; ++z)
             if(this->T[z] < *min)
                 min = this->T + z;
         tmp = this->T[0];
@@ -154,7 +154,7 @@ void graphe::dijkstra(int s)
         // cout<<endl;
 
         //Suppression de l'indice j du tas
-        std::pop_heap(this->T, this->T + this->n - 1 - l, Cmp(this->d));
+        std::pop_heap(this->T, this->T + this->n - l, Cmp(this->d));
 
         
 
@@ -162,7 +162,7 @@ void graphe::dijkstra(int s)
 
         //debug
         cout<<"debug3"<<endl;
-        for(int z = 0 ; z < this->n - 2 - l ; ++z)
+        for(int z = 0 ; z < this->n - 1 - l ; ++z)
             cout<<z<<" -> "<<this->T[z]<<endl;
         cout<<endl;
 
