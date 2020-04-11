@@ -122,16 +122,17 @@ void graphe::dijkstra(int s)
                 cout<<endl;
 
                 //reorganisation du tas T à partir de l'indice I[i]
-                // std::make_heap(this->T + this->I[i], this->T + this->n - 1 - l, Cmp(this->d));
+                // std::make_heap(this->T + this->I[i], this->T + this->n - l, Cmp(this->d));
 
                 // //debug
                 // cout<<"debug2"<<endl;
-                // for(int z = 0 ; z < this->n - 1 - l; ++z)
+                // for(int z = 0 ; z < this->n - l; ++z)
                 //     cout<<z<<" -> "<<this->T[z]<<endl;
                 // cout<<endl;
             }
         }
         
+        // si heap bien faite pas besoin normalement..
         //swap la plus petite valeur dans T[0] pour le pop_heap
         int* min = new int(infini);
         int tmp;
@@ -147,18 +148,15 @@ void graphe::dijkstra(int s)
         j = this->T[0]; //sinon j reste à 0
 
 
-        // //debug
-        // cout<<"debug2.5"<<endl;
-        // for(int z = 0 ; z < this->n - 1 - l ; ++z)
-        //     cout<<z<<" -> "<<this->T[z]<<endl;
-        // cout<<endl;
+        //debug
+        cout<<"debug2.5"<<endl;
+        for(int z = 0 ; z < this->n - l ; ++z)
+            cout<<z<<" -> "<<this->T[z]<<endl;
+        cout<<endl;
 
-        //Suppression de l'indice j du tas
+        //Suppression de l'indice j du tas (premier element tas)
         std::pop_heap(this->T, this->T + this->n - l, Cmp(this->d));
-
-        
-
-        
+     
 
         //debug
         cout<<"debug3"<<endl;
