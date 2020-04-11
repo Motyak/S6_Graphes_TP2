@@ -98,9 +98,9 @@ void graphe::dijkstra(int s)
     this->d[0] = 0;
     for(i = 1 ; i < this->n ; ++i)
         this->d[i] = infini;
-    /* tableau pere initialisé à 0 par défaut en c++ ? */
+    /* tableau pere initialisé à 0 par défaut en c++ */
     int j = 0;  //noeud pivot initial
-    // for(int l = 1 ; l <= 9 ; ++l)   //l iterations pour debug
+    // for(int l = 1 ; l <= 2 ; ++l)   //l iterations pour debug
     for(int l = 1 ; l < this->n  ; ++l)
     {
         // pour chaque voisin de j..
@@ -138,15 +138,15 @@ void graphe::dijkstra(int s)
         
         // si heap bien faite pas besoin normalement..
         //swap la plus petite valeur selon d dans T[0] pour le pop_heap
-        int* min = new int(infini);
-        int tmp;
-        for(int z = 0 ; z < this->n - l ; ++z)
-            if(this->d[this->T[z]] < *min)
-                min = this->T + z;
-        tmp = this->T[0];
-        this->T[0] = *min;
-        cout<<"val min = "<<*min<<endl;
-        *min = tmp;
+        // int* min = new int(infini);
+        // int tmp;
+        // for(int z = 0 ; z < this->n - l ; ++z)
+        //     if(this->d[this->T[z]] < *min)
+        //         min = this->T + z;
+        // tmp = this->T[0];
+        // this->T[0] = *min;
+        // cout<<"val min = "<<*min<<endl; //debug
+        // *min = tmp;
 
         //Recherche dans T, de l'indice j de plus petite valeur d[i]
         j = this->T[0]; //sinon j reste à 0
