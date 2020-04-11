@@ -100,7 +100,7 @@ void graphe::dijkstra(int s)
         this->d[i] = infini;
     /* tableau pere initialisé à 0 par défaut en c++ ? */
     int j = 0;  //noeud pivot initial
-    // for(int l = 1 ; l <= 2 ; ++l)   //l iterations pour debug
+    // for(int l = 1 ; l <= 9 ; ++l)   //l iterations pour debug
     for(int l = 1 ; l < this->n  ; ++l)
     {
         // pour chaque voisin de j..
@@ -122,29 +122,29 @@ void graphe::dijkstra(int s)
                 cout<<endl;
 
                 //reorganisation du tas T à partir de l'indice I[i]
-                // std::make_heap(this->T + this->I[i], this->T + (this->n - 1 - l));
-                std::make_heap(this->T + this->I[i], this->T + this->n - 1 - l, Cmp(this->d));
+                // std::make_heap(this->T + this->I[i], this->T + this->n - 1 - l, Cmp(this->d));
 
-                //debug
-                cout<<"debug2"<<endl;
-                for(int z = 0 ; z < this->n - 1 - l; ++z)
-                    cout<<z<<" -> "<<this->T[z]<<endl;
-                cout<<endl;
+                // //debug
+                // cout<<"debug2"<<endl;
+                // for(int z = 0 ; z < this->n - 1 - l; ++z)
+                //     cout<<z<<" -> "<<this->T[z]<<endl;
+                // cout<<endl;
             }
         }
         
+        //swap la plus petite valeur dans T[0] pour le pop_heap
+        int* min = new int(infini);
+        int tmp;
+        for(int z = 0 ; z < this->n - 1 - l ; ++z)
+            if(this->T[z] < *min)
+                min = this->T + z;
+        tmp = this->T[0];
+        this->T[0] = *min;
+        cout<<"val min = "<<*min<<endl;
+        *min = tmp;
+
         //Recherche dans T, de l'indice j de plus petite valeur d[i]
         j = this->T[0]; //sinon j reste à 0
-        //swap la plus petite valeur dans T[0] pour le pop_heap
-        // int* min = new int(infini);
-        // int tmp;
-        // for(int z = 0 ; z < this->n - 1 - l ; ++z)
-        //     if(this->T[z] < *min)
-        //         min = this->T + z;
-        // tmp = this->T[0];
-        // this->T[0] = *min;
-        // cout<<"val min = "<<*min<<endl;
-        // *min = tmp;
 
 
         // //debug
@@ -164,6 +164,11 @@ void graphe::dijkstra(int s)
         cout<<"debug3"<<endl;
         for(int z = 0 ; z < this->n - 2 - l ; ++z)
             cout<<z<<" -> "<<this->T[z]<<endl;
+        cout<<endl;
+
+        //debug
+        for(int i = 0 ; i < this->n ; ++i)
+            cout<<i<<" -> "<<this->d[i]<<endl;
         cout<<endl;
 
         cout<<"FIN ITERATION "<<l<<endl<<endl;    //debug
