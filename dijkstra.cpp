@@ -100,7 +100,7 @@ void graphe::dijkstra(int s)
         this->d[i] = infini;
     /* tableau pere initialisé à 0 par défaut en c++ */
     int j = 0;  //noeud pivot initial
-    // for(int l = 1 ; l <= 2 ; ++l)   //l iterations pour debug
+
     for(int l = 1 ; l < this->n  ; ++l)
     {
         // pour chaque voisin de j..
@@ -109,56 +109,19 @@ void graphe::dijkstra(int s)
             int i = s.first, cji = s.second;
             int sum = this->d[j] + cji;
 
-            cout<<this->I[i]<<";"<<sum<<";"<<this->d[i]<<endl;  //debug
             if(this->I[i] > -1 && sum < this->d[i])
             { 
                 this->d[i] = sum;
                 this->pere[i] = j;
 
-                //debug
-                cout<<"debug1"<<endl;
-                for(int z = 0 ; z < this->n - l; ++z)
-                    cout<<z<<" -> "<<this->T[z]<<endl;
-                for(int z = 0 ; z < this->n - l; ++z)
-                    cout<<z<<" -> "<<this->d[this->T[z]]<<endl;
-                cout<<endl;
-
                 //reorganisation du tas T [ à partir de l'indice I[i] ]
                 std::make_heap(this->T, this->T + this->n - l, Cmp(this->d));
 
-                //debug
-                cout<<"debug2"<<endl;
-                for(int z = 0 ; z < this->n - l; ++z)
-                    cout<<z<<" -> "<<this->T[z]<<endl;
-                for(int z = 0 ; z < this->n - l; ++z)
-                    cout<<z<<" -> "<<this->d[this->T[z]]<<endl;
-                cout<<endl;
             }
         }
-        
-        // si heap bien faite pas besoin normalement..
-        //swap la plus petite valeur selon d dans T[0] pour le pop_heap
-        // int* min = new int(infini);
-        // int tmp;
-        // for(int z = 0 ; z < this->n - l ; ++z)
-        //     if(this->d[this->T[z]] < *min)
-        //         min = this->T + z;
-        // tmp = this->T[0];
-        // this->T[0] = *min;
-        // cout<<"val min = "<<*min<<endl; //debug
-        // *min = tmp;
 
         //Recherche dans T, de l'indice j de plus petite valeur d[i]
         j = this->T[0]; //sinon j reste à 0
-
-
-        //debug
-        cout<<"debug2.5"<<endl;
-        for(int z = 0 ; z < this->n - l ; ++z)
-            cout<<z<<" -> "<<this->T[z]<<endl;
-        for(int z = 0 ; z < this->n - l ; ++z)
-            cout<<z<<" -> "<<this->d[this->T[z]]<<endl;
-        cout<<endl;
 
         //Suppression de l'indice j du tas (premier element tas)
         std::pop_heap(this->T, this->T + this->n - l, Cmp(this->d));
@@ -167,43 +130,5 @@ void graphe::dijkstra(int s)
         this->I[j] = -1;    //j est la valeur du noeud qui a disparue du tas
         for(int z = 0 ; z < this->n - 1 - l ; ++z)
             this->I[this->T[z]] = z;
-     
-
-        //debug
-        cout<<"debug3"<<endl;
-        for(int z = 0 ; z < this->n - 1 - l ; ++z)
-            cout<<z<<" -> "<<this->T[z]<<endl;
-        for(int z = 0 ; z < this->n - 1 - l ; ++z)
-            cout<<z<<" -> "<<this->d[this->T[z]]<<endl;
-        cout<<endl;
-
-        //debug
-        for(int i = 0 ; i < this->n ; ++i)
-            cout<<i<<" -> "<<this->d[i]<<endl;
-        cout<<endl;
-        for(int i = 0 ; i < this->n ; ++i)
-            cout<<i<<" -> "<<this->I[i]<<endl;
-        cout<<endl;
-
-        cout<<"FIN ITERATION "<<l<<endl<<endl;    //debug
-
-        // //debug
-        // for(int i = 0 ; i < this->n ; ++i)
-        //     cout<<i<<" -> "<<this->d[i]<<endl;
-        // cout<<endl;
-
-        // for(int i = 0 ; i < this->n - 1 ; ++i)
-        //     cout<<i<<" -> "<<this->T[i]<<endl;
-        // cout<<endl;
-
-        // for(int i = 0 ; i < this->n ; ++i)
-        //     cout<<i<<" -> "<<this->I[i]<<endl;
-        // cout<<endl;
-
-        // for(int i = 0 ; i < this->n ; ++i)
-        //     cout<<i<<" -> "<<this->pere[i]<<endl;
-        // cout<<endl;
-    }
-
-    
+    }  
 }
