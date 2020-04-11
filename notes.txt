@@ -34,10 +34,23 @@ pour chaque element j (tous les noeuds sauf pivot), qui est strictement sup à -
 
 
 ##
-Etant donné que std::pop_heap rearranges le tableau de manière non voulue (la premiere
+Mon code fonctionne pour le premier graphe (en vérifiant bien 
+que les valeurs de T, I et d soient correctes pour chaque itération).
+En revanche il donne de mauvais résultats pour le graphe 2.
+
+Etant donné que std::pop_heap rearrange le tableau de manière non voulue (la premiere
 	valeur n'est pas toujours la plus petite), alors je déplace moi meme la valeur la 
 	plus petite dans T[0].
-J'ai pourtant bien utilisé une fonction de comparaison pour former une Min Heap.
+J'ai pourtant bien utilisé une fonction de comparaison pour former une Min Heap en fonction des valeurs de d.
+
+Je n'utilise pas std::make_heap car T forme de base un tas et que std::pop_heap 
+	fait conserver ses propriétés de tas à l'intervalle de valeurs appliquée.
+
+Pensez-vous que l'erreur vient de là ou bien y a-t-il un problème avec mon algorithme ?
 ##
 
-Il faut que j'update I en fonction de T à chaque itération.
+
+Comme on compare les T en fonction de leurs valeurs dans d, lorsque d change, alors
+	l'organisation du tas aussi.
+
+Quand je mets manuellement la plus petite valeur d de T dans T[0], je compare pas avec valeur d.
