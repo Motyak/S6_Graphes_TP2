@@ -37,7 +37,7 @@ pour chaque element j (tous les noeuds sauf pivot), qui est strictement sup à -
 Etant donné que std::pop_heap rearranges le tableau de manière non voulue (la premiere
 	valeur n'est pas toujours la plus petite), alors je déplace moi meme la valeur la 
 	plus petite dans T[0].
-J'ai pourtant bien utilisé une fonction de comparaison pour avoir une Min Heap.
+J'ai pourtant bien utilisé une fonction de comparaison pour former une Min Heap.
 ##
 
 Il faut que j'update I en fonction de T à chaque itération.

@@ -14,7 +14,7 @@ Cmp::Cmp(int* d)
     this->d = d;
 }
 
-// pour une min heap
+// pour une min heap -> j'ai changé '<' en '>='
 bool Cmp::operator()(const int a, const int b)
 {
     return this->d[a] >= this->d[b];
@@ -156,6 +156,11 @@ void graphe::dijkstra(int s)
 
         //Suppression de l'indice j du tas (premier element tas)
         std::pop_heap(this->T, this->T + this->n - l, Cmp(this->d));
+
+        //Mettre a jour I en fonction du nouveau T
+        this->I[j] = -1;    //j est la valeur du noeud qui a disparu du tas
+        for(int z = 0 ; z < this->n - 1 - l ; ++z)
+            this->I[this->T[z]] = z;
      
 
         //debug
@@ -167,6 +172,9 @@ void graphe::dijkstra(int s)
         //debug
         for(int i = 0 ; i < this->n ; ++i)
             cout<<i<<" -> "<<this->d[i]<<endl;
+        cout<<endl;
+        for(int i = 0 ; i < this->n ; ++i)
+            cout<<i<<" -> "<<this->I[i]<<endl;
         cout<<endl;
 
         cout<<"FIN ITERATION "<<l<<endl<<endl;    //debug
